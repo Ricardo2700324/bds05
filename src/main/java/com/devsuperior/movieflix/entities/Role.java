@@ -1,38 +1,30 @@
 package com.devsuperior.movieflix.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_genre")
-public class Genre implements Serializable {
+@Table(name = "tb_role")
+public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	private String authority;
 
-	@OneToMany(mappedBy = "genre")
-	private List<Movie> movies = new ArrayList<>();
-
-	public Genre() {
-
+	public Role() {
 	}
 
-	public Genre(Long id, String name) {
+	public Role(Long id, String authority) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.authority = authority;
 	}
 
 	public Long getId() {
@@ -43,21 +35,20 @@ public class Genre implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getAuthority() {
+		return authority;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<Movie> getMovies() {
-		return movies;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
@@ -68,10 +59,12 @@ public class Genre implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Genre other = (Genre) obj;
-		return Objects.equals(id, other.id);
+		Role other = (Role) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
-
-
-
 }
